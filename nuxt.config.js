@@ -1,4 +1,11 @@
+const axios = require('axios')
+
 module.exports = {
+  // env: {
+  //   CTF_SPACE_ID: config.CTF_SPACE_ID,
+  //   CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
+  //   CTF_ENVIRONMENT: config.CTF_ENVIRONMENT
+  // },
   mode: 'universal',
   /*
    ** Headers of the page
@@ -33,7 +40,7 @@ module.exports = {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    // '@nuxtjs/eslint-module'
   ],
   /*
    ** Nuxt.js modules
@@ -58,5 +65,20 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+
+  generate: {
+    routes: function() {
+      return axios
+        .get('https://jsonplaceholder.typicode.com/users')
+        .then((res) => {
+          return res.data.map((user) => {
+            return {
+              route: '/users/' + user.id,
+              payload: user
+            }
+          })
+        })
+    }
   }
 }
