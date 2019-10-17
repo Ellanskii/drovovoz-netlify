@@ -7,8 +7,11 @@
 <script>
 export default {
 	async asyncData({ params, error, payload }) {
-		if (payload) return { user: payload }
-		// else return { user: await backend.fetchUser(params.id) }
+		if (payload) {
+			return { user: payload }
+		} else {
+			return window.__NUXT__.data[0]
+		}
 	}
 }
 </script>
