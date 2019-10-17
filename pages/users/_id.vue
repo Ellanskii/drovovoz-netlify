@@ -10,6 +10,7 @@ export default {
 		if (payload) {
 			return { user: payload }
 		} else {
+      const window = window || {}
 			return { user: window.__NUXT__.data[0]}
 		}
 	},
