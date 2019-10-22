@@ -7262,6 +7262,11 @@ nuxt-buefy@^0.3.2:
   dependencies:
     buefy "^0.8.5"
 
+nuxt-payload-extractor@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/nuxt-payload-extractor/-/nuxt-payload-extractor-0.0.14.tgz#f2089bf0888d953aeb860055c6b61d541910f0dc"
+  integrity sha512-IocCtYFgubYiaLTaDf8uWmFNU0QcYuuUphbsj+tZP0KC5cpsVEQWy6xUPFSEdpej3nHMjiDMRx4v1SXpsLXAzg==
+
 nuxt@^2.0.0:
   version "2.10.1"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.10.1.tgz#d02237baea11bfaa63d65e45231c41c6a7c18d49"

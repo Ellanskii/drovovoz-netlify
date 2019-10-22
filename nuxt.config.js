@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 module.exports = {
   mode: 'universal',
   /*
@@ -43,7 +45,8 @@ module.exports = {
     'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    'nuxt-payload-extractor'
   ],
   /*
    ** Axios module configuration
@@ -58,5 +61,19 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  generate: {
+    routes() {
+      return axios
+        .get('https://jsonplaceholder.typicode.com/posts')
+        .then((res) => {
+          return res.data.map((post) => {
+            return {
+              route: '/posts/' + post.id,
+              payload: post
+            }
+          })
+        })
+    }
   }
 }

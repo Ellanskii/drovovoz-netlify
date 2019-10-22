@@ -24,6 +24,8 @@
         <a href="http://bulma.io/">
           Bulma
         </a>
+        <nuxt-link to="/posts/1">post 1</nuxt-link>
+        <nuxt-link to="/posts/2">post 2</nuxt-link>
       </card>
 
       <card title="Lightweight" icon="arrange-bring-to-front">
