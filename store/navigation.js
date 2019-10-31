@@ -14,8 +14,13 @@ export const actions = {
   buildNavigationTree: ({ commit }, products) => {
     const tree = []
     products.map((product) => {
-      const productCategory = product.fields.categories[0]
-      if (!productCategory) return // TODO может ли товар не принадлежать ни к одной категории? Если да, то что с ним делать
+      // TODO может ли товар не принадлежать ни к одной категории? Если да, то что с ним делать
+      let productCategory
+      if (product.fields.categories) {
+        productCategory = product.fields.categories[0]
+      } else {
+        return
+      }
 
       const indexInTree = tree.findIndex(
         (category) => category.id === productCategory.sys.id
