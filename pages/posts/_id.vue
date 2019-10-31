@@ -1,21 +1,32 @@
 <template>
   <div class="content">
     <h1>{{ post.title }}</h1>
-    <div v-html="post.contetn"></div>
+    <div v-html="post.body"></div>
   </div>
 </template>
 
 <script>
 export default {
   async asyncData({ $axios, $payloadURL, route, payload }) {
+    // получаем данные через API, если это не статика
+    if (!process.static) {
+      let post = {}
+      await $axios
+        .$get(`https://jsonplaceholder.typicode.com/posts/${route.params.id}`)
+        .then((res) => {
+          post = res
+        })
+        .catch()
+      return { post }
+    }
+
     // if generated and works as client navigation, fetch previously saved static JSON payload
     if (process.static && process.client) {
       const post = await $axios.$get($payloadURL(route))
       return post
     }
 
-    // your request logic
-    // let post = await $axios.$get(`/post.json`)
+    // data for generating static page
     return {
       post: payload
     }

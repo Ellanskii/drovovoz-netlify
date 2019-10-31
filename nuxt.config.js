@@ -1,7 +1,13 @@
 const axios = require('axios')
+const config = require('./contentful.json')
 
 module.exports = {
   mode: 'universal',
+  env: {
+    CTF_SPACE_ID: config.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
+    CTF_ENVIRONMENT: config.CTF_ENVIRONMENT
+  },
   /*
    ** Headers of the page
    */
@@ -46,6 +52,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    // Doc: https://github.com/DreaMinder/nuxt-payload-extractor
     'nuxt-payload-extractor'
   ],
   /*
@@ -60,6 +67,7 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
+    extractCSS: true,
     extend(config, ctx) {}
   },
   generate: {

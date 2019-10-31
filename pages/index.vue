@@ -1,48 +1,47 @@
 <template>
   <section class="section">
-    <div class="columns is-mobile">
-      <card title="Free" icon="github-circle">
-        Open source on
-        <a href="https://github.com/buefy/buefy">
-          GitHub
-        </a>
-      </card>
-
-      <card title="Responsive" icon="cellphone-link">
-        <b class="has-text-grey">
-          Every
-        </b>
-        component is responsive
-      </card>
-
-      <card title="Modern" icon="alert-decagram">
-        Built with
-        <a href="https://vuejs.org/">
-          Vue.js
-        </a>
-        and
-        <a href="http://bulma.io/">
-          Bulma
-        </a>
-        <nuxt-link to="/posts/1">post 1</nuxt-link>
-        <nuxt-link to="/posts/2">post 2</nuxt-link>
-      </card>
-
-      <card title="Lightweight" icon="arrange-bring-to-front">
-        No other internal dependency
-      </card>
-    </div>
+    <nav><NavigationCatalog /></nav>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
+import { mapGetters } from 'vuex'
+import { createClient } from '@/plugins/contentful'
+
+import NavigationCatalog from '@/components/NavigationCatalog'
+
+const contentfulClient = createClient()
 
 export default {
-  name: 'HomePage',
-
   components: {
-    Card
+    NavigationCatalog
+  },
+  data() {
+    return {
+      products: []
+    }
+  },
+  computed: {
+    ...mapGetters({
+      categories: 'navigation/getCategories'
+    })
+  },
+  methods: {
+    getProducts() {
+      return Promise.all([
+        // fetch all blog posts sorted by creation date
+        contentfulClient.getEntries({
+          content_type: 'product',
+          order: '-sys.createdAt'
+        })
+      ])
+        .then(([products]) => {
+          // return data that should be available
+          // in the template
+          this.products = products.items
+        })
+        .catch(console.error)
+    }
   }
 }
 </script>
