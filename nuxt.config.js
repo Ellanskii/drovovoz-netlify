@@ -1,12 +1,13 @@
-const axios = require('axios')
-const config = require('./contentful.json')
+// const axios = require('axios')
+// const config = require('./contentful.json')
+const contentfulRoutes = require('./routes.js')
 
 module.exports = {
   mode: 'universal',
   env: {
-    CTF_SPACE_ID: config.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
-    CTF_ENVIRONMENT: config.CTF_ENVIRONMENT
+    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
+    CTF_ENVIRONMENT: process.env.CTF_ENVIRONMENT
   },
   /*
    ** Headers of the page
@@ -72,16 +73,8 @@ module.exports = {
   },
   generate: {
     routes() {
-      return axios
-        .get('https://jsonplaceholder.typicode.com/posts')
-        .then((res) => {
-          return res.data.map((post) => {
-            return {
-              route: '/posts/' + post.id,
-              payload: post
-            }
-          })
-        })
+      console.log(contentfulRoutes())
+      return contentfulRoutes()
     }
   }
 }

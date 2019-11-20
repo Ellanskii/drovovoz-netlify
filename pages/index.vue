@@ -1,6 +1,8 @@
 <template>
   <section class="section">
     <nav><NavigationCatalog /></nav>
+    <button class="button" @click="getProducts">include 1</button>
+    <button class="button" @click="getProducts(10)">include 0</button>
   </section>
 </template>
 
@@ -27,12 +29,13 @@ export default {
     })
   },
   methods: {
-    getProducts() {
+    getProducts(depth = 1) {
       return Promise.all([
         // fetch all blog posts sorted by creation date
         contentfulClient.getEntries({
           content_type: 'product',
-          order: '-sys.createdAt'
+          order: '-sys.createdAt',
+          include: depth
         })
       ])
         .then(([products]) => {

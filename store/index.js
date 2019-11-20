@@ -6,12 +6,10 @@ export const actions = {
     console.log('nuxtServerInit')
     await Promise.all([
       contentfulClient.getEntries({
-        content_type: 'category',
-        order: '-sys.createdAt'
+        content_type: 'category'
       }),
       contentfulClient.getEntries({
-        content_type: 'product',
-        order: '-sys.createdAt'
+        content_type: 'product'
       })
     ])
       .then(([categories, products]) => {
