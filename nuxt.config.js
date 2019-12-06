@@ -73,7 +73,6 @@ module.exports = {
   },
   generate: {
     routes() {
-      console.log(contentfulRoutes())
       return contentfulRoutes()
     }
   }

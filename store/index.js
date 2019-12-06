@@ -3,7 +3,6 @@ const contentfulClient = createClient()
 
 export const actions = {
   async nuxtServerInit({ commit, dispatch, getters }, context) {
-    console.log('nuxtServerInit')
     await Promise.all([
       contentfulClient.getEntries({
         content_type: 'category'
