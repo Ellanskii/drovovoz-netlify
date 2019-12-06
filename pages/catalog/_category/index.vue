@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h1>{{ category.title }}</h1>
+    <!-- <h1>{{ category.title }}</h1> -->
     <!-- <div v-html="category.fields.description"></div> -->
   </div>
 </template>
@@ -12,17 +12,50 @@ export default {
     if (!process.static) {
       const contentful = require('~/plugins/contentful')
       const contentfulClient = contentful.createClient()
-      let category = {}
+
+      let category, categoryId, products
+
+      // await Promise.all([
+      // 	contentfulClient.getEntries({
+      // 		content_type: 'category',
+      // 		'fields.slug[in]': route.params.category
+      // 	}),
+      // 	contentfulClient.getEntries({
+      // 		content_type: 'product',
+      // 		'fields.brand.sys.contentType.sys.id': 'brand',
+      // 		'fields.brand.fields.companyName[match]': 'Lemnos'
+      // 		// include: 0
+      // 	})
+      // ])
+      // 	.then(([_categories, _products]) => {
+      // 		category = _categories.items[0].fields
+      // 		products = _products.items.map((product) => product.fields)
+      // 	})
+      // 	.catch((e) => console.error)
+
       await contentfulClient
         .getEntries({
           content_type: 'category',
           'fields.slug[in]': route.params.category
         })
-        .then((entry) => {
-          category = entry.items[0].fields
+        .then((categories) => {
+          category = categories.items[0].fields
+          categoryId = categories.items[0].sys.id
         })
-        .catch()
-      return { category }
+        .catch((e) => console.error)
+
+      await contentfulClient
+        .getEntries({
+          content_type: 'product',
+          'fields.categories.sys.id': categoryId,
+          include: 0
+        })
+        .then((_products) => {
+          products = _products.items.map((product) => product.fields)
+        })
+        .catch((e) => console.error)
+
+      return { category, products }
     }
 
     // if generated and works as client navigation, fetch previously saved static JSON payload
@@ -30,7 +63,7 @@ export default {
       const category = await $axios.$get($payloadURL(route))
       return category
     }
-    console.log(process.env.CTF_SPACE_ID)
+
     // data for generating static page
     return {
       category: payload
