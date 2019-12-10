@@ -54,8 +54,16 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/DreaMinder/nuxt-payload-extractor
-    'nuxt-payload-extractor'
+    'nuxt-payload-extractor',
+    ['nuxt-i18n', { seo: true }]
   ],
+  i18n: {
+    locales: [
+      { code: 'en', iso: 'en-US', name: 'English' },
+      { code: 'ru', iso: 'ru-RU', name: 'Русский' }
+    ],
+    defaultLocale: 'ru'
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -70,6 +78,9 @@ module.exports = {
      */
     extractCSS: true,
     extend(config, ctx) {}
+  },
+  router: {
+    linkExactActiveClass: 'is-active'
   },
   generate: {
     routes() {
