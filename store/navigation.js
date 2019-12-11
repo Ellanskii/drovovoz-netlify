@@ -28,7 +28,7 @@ export const actions = {
       // оставляем только нужное в товаре
       product = {
         id: product.sys.id, // TODO нужен ли id?
-        name: product.fields.productName,
+        name: product.fields.name,
         slug: product.fields.slug
       }
       if (indexInTree >= 0) {
@@ -36,7 +36,7 @@ export const actions = {
       } else {
         tree.push({
           id: productCategory.sys.id,
-          name: productCategory.fields.title,
+          name: productCategory.fields.name,
           slug: productCategory.fields.slug,
           products: [product]
         })

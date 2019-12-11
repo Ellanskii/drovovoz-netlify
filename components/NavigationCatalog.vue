@@ -1,7 +1,14 @@
 <template>
   <ul>
     <li v-for="category in tree" :key="category.id">
-      <nuxt-link :to="`catalog/${category.slug}`">
+      <nuxt-link
+        :to="
+          localePath({
+            name: 'catalog-category',
+            params: { category: category.slug }
+          })
+        "
+      >
         {{ category.name }}
       </nuxt-link>
       <ul>

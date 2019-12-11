@@ -1,6 +1,18 @@
 // const axios = require('axios')
 // const config = require('./contentful.json')
 const contentfulRoutes = require('./routes.js')
+const routesTranslations = {
+  en: {
+    route: {
+      catalog: 'Catalog'
+    }
+  },
+  ru: {
+    route: {
+      catalog: 'Каталог'
+    }
+  }
+}
 
 module.exports = {
   mode: 'universal',
@@ -62,6 +74,7 @@ module.exports = {
       { code: 'en', iso: 'en-US', name: 'English' },
       { code: 'ru', iso: 'ru-RU', name: 'Русский' }
     ],
+    vueI18n: { messages: routesTranslations },
     defaultLocale: 'ru'
   },
   /*

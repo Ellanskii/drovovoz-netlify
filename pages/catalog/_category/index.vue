@@ -1,8 +1,20 @@
 <template>
-  <div class="content">
-    <!-- <h1>{{ category.title }}</h1> -->
-    <!-- <div v-html="category.fields.description"></div> -->
-  </div>
+  <main class="container">
+    <div class="columns is-multiline">
+      <header class="column is-12">
+        <h1 class="title">{{ category.name }}</h1>
+      </header>
+      <div
+        v-for="(product, index) in products"
+        :key="index"
+        class="column is-4"
+      >
+        <div class="box">
+          <h2 class="title is-4">{{ product.name }}</h2>
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -15,24 +27,7 @@ export default {
 
       let category, categoryId, products
 
-      // await Promise.all([
-      // 	contentfulClient.getEntries({
-      // 		content_type: 'category',
-      // 		'fields.slug[in]': route.params.category
-      // 	}),
-      // 	contentfulClient.getEntries({
-      // 		content_type: 'product',
-      // 		'fields.brand.sys.contentType.sys.id': 'brand',
-      // 		'fields.brand.fields.companyName[match]': 'Lemnos'
-      // 		// include: 0
-      // 	})
-      // ])
-      // 	.then(([_categories, _products]) => {
-      // 		category = _categories.items[0].fields
-      // 		products = _products.items.map((product) => product.fields)
-      // 	})
-      // 	.catch((e) => console.error)
-
+      // Получаем категорию
       await contentfulClient
         .getEntries({
           content_type: 'category',
@@ -44,11 +39,12 @@ export default {
         })
         .catch((e) => console.error)
 
+      // Получаем товары категрии
       await contentfulClient
         .getEntries({
           content_type: 'product',
-          'fields.categories.sys.id': categoryId,
-          include: 0
+          'fields.categories.sys.id': categoryId
+          // include: 0
         })
         .then((_products) => {
           products = _products.items.map((product) => product.fields)
