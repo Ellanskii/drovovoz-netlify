@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route)
+    console.log(this.$i18n.t)
   }
 }
 </script>
