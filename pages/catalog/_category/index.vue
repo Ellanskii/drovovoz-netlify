@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { cleanProduct } from '~/plugins/api'
+
 export default {
   async asyncData({ $axios, $payloadURL, route, payload }) {
     // получаем данные через API, если это не статика
@@ -44,10 +46,9 @@ export default {
         .getEntries({
           content_type: 'product',
           'fields.categories.sys.id': categoryId
-          // include: 0
         })
         .then((_products) => {
-          products = _products.items.map((product) => product.fields)
+          products = _products.items.map((product) => cleanProduct(product))
         })
         .catch((e) => console.error)
 
