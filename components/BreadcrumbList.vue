@@ -54,9 +54,6 @@ export default {
 
       return crumbs
     }
-  },
-  mounted() {
-    console.log(this.$i18n.t)
   }
 }
 </script>
