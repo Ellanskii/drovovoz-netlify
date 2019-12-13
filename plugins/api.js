@@ -1,3 +1,6 @@
+// import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import marked from 'marked'
+
 export const cleanProduct = (product, full = false) => {
   // Базовый товар для миниатюры в списке
   const basicProduct = {
@@ -10,7 +13,9 @@ export const cleanProduct = (product, full = false) => {
     price: product.fields.price
   }
 
-  const fullProduct = {}
+  const fullProduct = {
+    description: marked(product.fields.description)
+  }
 
-  return full ? { basicProduct, ...fullProduct } : basicProduct
+  return full ? { ...basicProduct, ...fullProduct } : basicProduct
 }

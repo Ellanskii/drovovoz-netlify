@@ -1,5 +1,5 @@
 // const axios = require('axios')
-// const config = require('./contentful.json')
+const config = require('./contentful.json')
 const contentfulRoutes = require('./routes.js')
 const routesTranslations = {
   en: {
@@ -17,9 +17,9 @@ const routesTranslations = {
 module.exports = {
   mode: 'universal',
   env: {
-    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
-    CTF_ENVIRONMENT: process.env.CTF_ENVIRONMENT
+    CTF_SPACE_ID: config.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
+    CTF_ENVIRONMENT: config.CTF_ENVIRONMENT
   },
   /*
    ** Headers of the page

@@ -21,12 +21,14 @@
     }
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.4.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/style-resources": "^1.0.0",
     "contentful": "^7.10.0",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
+    "marked": "^0.8.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
     "nuxt-i18n": "^6.4.1",

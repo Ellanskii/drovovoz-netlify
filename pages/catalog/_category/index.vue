@@ -54,7 +54,7 @@ export default {
         })
         .catch((e) => console.error)
 
-      // Получаем товары категрии
+      // Получаем товары категории
       await contentfulClient
         .getEntries({
           content_type: 'product',
