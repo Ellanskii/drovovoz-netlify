@@ -1,13 +1,15 @@
 export const state = () => ({
   categories: [],
   products: [],
-  navigationTree: []
+  navigationTree: [],
+  breadcrumbs: []
 })
 
 export const getters = {
   getCategories: (state) => state.categories,
   getProducts: (state) => state.products,
-  getNavigationTree: (state) => state.navigationTree
+  getNavigationTree: (state) => state.navigationTree,
+  getBreadcrumbs: (state) => state.breadcrumbs
 }
 
 export const actions = {
@@ -55,5 +57,8 @@ export const mutations = {
   },
   SET_NAVIGATION_TREE(state, tree) {
     state.navigationTree = tree
+  },
+  SET_BREADCRUMBS(state, breadcrumbs) {
+    state.breadcrumbs = breadcrumbs
   }
 }

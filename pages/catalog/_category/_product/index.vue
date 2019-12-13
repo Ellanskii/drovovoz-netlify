@@ -6,7 +6,7 @@
       </header>
       <div class="column is-4">
         <h2 class="title is-4">Описание</h2>
-        <div v-html="product.description" class="content"></div>
+        <div class="content" v-html="product.description"></div>
       </div>
     </article>
   </div>
