@@ -4,14 +4,21 @@
       <header class="column is-12">
         <h1 class="title">{{ category.name }}</h1>
       </header>
-      <div
-        v-for="(product, index) in products"
-        :key="index"
-        class="column is-4"
-      >
-        <div class="box">
-          <h2 class="title is-4">{{ product.name }}</h2>
-        </div>
+      <div v-for="product in products" :key="product.id" class="column is-4">
+        <nuxt-link
+          :to="
+            localePath({
+              name: 'catalog-category-product',
+              params: {
+                category: category.slug,
+                product: product.slug
+              }
+            })
+          "
+          class="is-hoverable"
+        >
+          <ProductCard :product="product" />
+        </nuxt-link>
       </div>
     </div>
   </main>
@@ -20,7 +27,13 @@
 <script>
 import { cleanProduct } from '~/plugins/api'
 
+import ProductCard from '~/components/ProductCard'
+
 export default {
+  components: {
+    ProductCard
+  },
+
   async asyncData({ $axios, $payloadURL, route, payload }) {
     // получаем данные через API, если это не статика
     if (!process.static) {

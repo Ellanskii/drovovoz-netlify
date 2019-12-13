@@ -1,0 +1,28 @@
+@mixin fullsize {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+// TODO variables
+.is-hoverable {
+  display: block;
+  position: relative;
+  transition: all $slow ease-in-out;
+  &:before {
+    content: '';
+    opacity: 0;
+    transition: all $slow ease-in-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    @include fullsize();
+    border-radius: 4px;
+  }
+  &:hover, &:focus {
+    transform: scale(1.05, 1.05);
+    z-index: 2;
+    &:before {
+      opacity: 1;
+    }
+  }
+}
