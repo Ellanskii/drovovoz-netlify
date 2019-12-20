@@ -9,7 +9,11 @@ export const getters = {
   getCategories: (state) => state.categories,
   getProducts: (state) => state.products,
   getNavigationTree: (state) => state.navigationTree,
-  getBreadcrumbs: (state) => state.breadcrumbs
+  getBreadcrumbs: (state) => state.breadcrumbs,
+  getCategoryByProduct: (state) => (id) =>
+    state.navigationTree.find((category) =>
+      category.products.some((product) => product.id === id)
+    )
 }
 
 export const actions = {

@@ -16,13 +16,13 @@
 import { cleanProduct } from '~/plugins/api'
 
 export default {
-  async asyncData({ $axios, $payloadURL, route, payload }) {
+  async asyncData({ $axios, $payloadURL, route, payload, store }) {
+    let product
+
     // получаем данные через API, если это не статика
     if (!process.static) {
       const contentful = require('~/plugins/contentful')
       const contentfulClient = contentful.createClient()
-
-      let product
 
       // Получаем товар
       await contentfulClient
@@ -34,20 +34,35 @@ export default {
           product = cleanProduct(products.items[0], true)
         })
         .catch((e) => console.error)
-
-      return { product }
     }
 
     // if generated and works as client navigation, fetch previously saved static JSON payload
-    if (process.static && process.client) {
-      const product = await $axios.$get($payloadURL(route))
-      return product
+    else if (process.static && process.client) {
+      product = await $axios.$get($payloadURL(route))
     }
 
     // data for generating static page
-    return {
-      product: payload
+    else {
+      product = payload
     }
+
+    // setting breadcrumbs
+    const category = store.getters['navigation/getCategoryByProduct'](
+      product.id
+    )
+    store.commit('navigation/SET_BREADCRUMBS', [
+      { name: 'Каталог', path: '/catalog' },
+      {
+        name: category.name,
+        path: `/catalog/${category.slug}`
+      },
+      {
+        name: product.name,
+        path: `/catalog/${category.slug}/${product.slug}`
+      }
+    ])
+
+    return { product }
   }
 }
 </script>

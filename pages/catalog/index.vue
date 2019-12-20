@@ -1,9 +1,15 @@
 <template>
   <div>
-    catalog
+    <NavigationCatalog />
   </div>
 </template>
 
 <script>
-export default {}
+import NavigationCatalog from '@/components/NavigationCatalog'
+
+export default {
+  components: {
+    NavigationCatalog
+  }
+}
 </script>

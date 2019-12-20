@@ -34,13 +34,15 @@ export default {
     ProductCard
   },
 
-  async asyncData({ $axios, $payloadURL, route, payload }) {
+  async asyncData({ $axios, $payloadURL, route, payload, store }) {
+    let category, products
+
     // получаем данные через API, если это не статика
     if (!process.static) {
       const contentful = require('~/plugins/contentful')
       const contentfulClient = contentful.createClient()
 
-      let category, categoryId, products
+      let categoryId
 
       // Получаем категорию
       await contentfulClient
@@ -64,20 +66,30 @@ export default {
           products = _products.items.map((product) => cleanProduct(product))
         })
         .catch((e) => console.error)
-
-      return { category, products }
     }
 
     // if generated and works as client navigation, fetch previously saved static JSON payload
-    if (process.static && process.client) {
-      const category = await $axios.$get($payloadURL(route))
-      return category
+    else if (process.static && process.client) {
+      category = await $axios.$get($payloadURL(route))
     }
 
     // data for generating static page
-    return {
-      category: payload
+    else {
+      category = payload
     }
+
+    // setting breadcrumbs
+    store.commit('navigation/SET_BREADCRUMBS', [
+      { name: 'Каталог', path: '/catalog' },
+      { name: category.name, path: `/catalog/${category.slug}` }
+    ])
+
+    return { category, products }
   }
+
+  // beforeRouteLeave(to, from, next) {
+  //   this.$store.commit('navigation/SET_BREADCRUMBS', [])
+  //   next()
+  // }
 }
 </script>
