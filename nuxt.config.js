@@ -63,6 +63,7 @@ module.exports = {
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxtjs/style-resources',
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
