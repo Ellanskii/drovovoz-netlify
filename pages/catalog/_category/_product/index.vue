@@ -5,17 +5,57 @@
         <h1 class="title">{{ product.name }}</h1>
       </header>
       <div class="column is-4">
+        <PictureResponsive
+          :src="product.cover"
+          width="400"
+          class="image is-1by1"
+          img-class="is-contained"
+        />
+      </div>
+      <div v-if="product.characteristics" class="column is-4">
+        <h2 class="title is-4">Характеристики</h2>
+        <table class="table">
+          <tr
+            v-for="(value, name, index) in product.characteristics"
+            :key="index"
+          >
+            <td>{{ name }}</td>
+            <td>{{ value }}</td>
+          </tr>
+        </table>
+      </div>
+      <div v-if="product.description" class="column is-4">
         <h2 class="title is-4">Описание</h2>
         <div class="content" v-html="product.description"></div>
+      </div>
+      <div class="column is-12">
+        <div v-if="address"></div>
+        <div v-else class="buttons">
+          <button
+            type="button"
+            class="button is-fullwidth is-primary is-medium"
+          >
+            Указать адрес доставки
+          </button>
+          <button type="button" class="button is-fullwidth is-medium">
+            Выбрать поставщика на карте
+          </button>
+        </div>
       </div>
     </article>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { cleanProduct } from '~/plugins/api'
+import PictureResponsive from '~/components/PictureResponsive'
 
 export default {
+  components: {
+    PictureResponsive
+  },
+
   async asyncData({ $axios, $payloadURL, route, payload, store }) {
     let product
 
@@ -63,6 +103,12 @@ export default {
     ])
 
     return { product }
+  },
+
+  computed: {
+    ...mapGetters({
+      address: 'user/getAddress'
+    })
   }
 }
 </script>

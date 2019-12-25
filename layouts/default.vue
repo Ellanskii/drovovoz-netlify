@@ -5,22 +5,24 @@
       role="navigation"
       aria-label="main navigation"
     >
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="~assets/buefy.png" alt="Buefy" height="28" />
-        </a>
-        <div class="navbar-burger">
-          <span />
-          <span />
-          <span />
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img src="~assets/buefy.png" alt="Buefy" height="28" />
+          </a>
+          <div class="navbar-burger">
+            <span />
+            <span />
+            <span />
+          </div>
         </div>
-      </div>
-      <div class="navbar-menu">
-        <div class="navbar-item"><LangSwitcher /></div>
+        <div class="navbar-menu">
+          <div class="navbar-item"><LangSwitcher /></div>
+        </div>
       </div>
     </nav>
 
-    <section class="main-content columns">
+    <!-- <section class="main-content columns">
       <aside class="column is-2 section">
         <p class="menu-label is-hidden-touch">
           General
@@ -36,18 +38,17 @@
         <BreadcrumbList />
         <nuxt />
       </div>
-    </section>
+    </section> -->
+    <nuxt />
   </div>
 </template>
 
 <script>
 import LangSwitcher from '~/components/LangSwitcher'
-import BreadcrumbList from '~/components/BreadcrumbList'
 
 export default {
   components: {
-    LangSwitcher,
-    BreadcrumbList
+    LangSwitcher
   },
   data() {
     return {

@@ -14,7 +14,10 @@ export const cleanProduct = (product, full = false) => {
   }
 
   const fullProduct = {
-    description: marked(product.fields.description)
+    description: product.fields.description
+      ? marked(product.fields.description)
+      : null,
+    characteristics: product.fields.characteristics
   }
 
   return full ? { ...basicProduct, ...fullProduct } : basicProduct

@@ -4,7 +4,7 @@
       <PictureResponsive
         :src="product.cover"
         width="400"
-        class="image is-3by2"
+        class="image is-1by1"
         img-class="is-contained"
       />
     </div>
@@ -16,6 +16,7 @@
 
 <script>
 import PictureResponsive from '~/components/PictureResponsive'
+
 export default {
   components: {
     PictureResponsive
@@ -29,4 +30,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss"></style>

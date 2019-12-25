@@ -13,8 +13,8 @@ export const actions = {
     ])
       .then(([categories, products]) => {
         dispatch('navigation/buildNavigationTree', products.items)
-        commit('navigation/SET_CATEGORIES', categories.items)
-        commit('navigation/SET_PRODUCTS', products.items)
+        // commit('navigation/SET_CATEGORIES', categories.items)
+        // commit('navigation/SET_PRODUCTS', products.items)
       })
       .catch(console.error)
   }
