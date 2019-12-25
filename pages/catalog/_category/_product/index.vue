@@ -15,13 +15,15 @@
       <div v-if="product.characteristics" class="column is-4">
         <h2 class="title is-4">Характеристики</h2>
         <table class="table">
-          <tr
-            v-for="(value, name, index) in product.characteristics"
-            :key="index"
-          >
-            <td>{{ name }}</td>
-            <td>{{ value }}</td>
-          </tr>
+          <tbody>
+            <tr
+              v-for="(value, name, index) in product.characteristics"
+              :key="index"
+            >
+              <td>{{ name }}</td>
+              <td>{{ value }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div v-if="product.description" class="column is-4">

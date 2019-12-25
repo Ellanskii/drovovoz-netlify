@@ -32,7 +32,8 @@
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
     "nuxt-i18n": "^6.4.1",
-    "nuxt-payload-extractor": "^0.0.14"
+    "nuxt-payload-extractor": "^0.0.14",
+    "vue-yandex-maps": "^0.10.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

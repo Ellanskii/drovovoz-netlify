@@ -18,6 +18,9 @@
         </div>
         <div class="navbar-menu">
           <div class="navbar-item"><LangSwitcher /></div>
+          <div class="navbar-item">
+            <button class="button" @click="showLocationSelect">Address</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -45,6 +48,7 @@
 
 <script>
 import LangSwitcher from '~/components/LangSwitcher'
+import LocationSelect from '~/components/LocationSelect'
 
 export default {
   components: {
@@ -65,6 +69,21 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    showLocationSelect() {
+      this.$buefy.modal.open({
+        hasModalCard: true,
+        trapFocus: true,
+        // fullScreen: true,
+        parent: this,
+        component: LocationSelect
+      })
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch('user/getUserLocationByIP')
   }
 }
 </script>

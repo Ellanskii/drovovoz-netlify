@@ -71,7 +71,8 @@ module.exports = {
     '@nuxtjs/pwa',
     // Doc: https://github.com/DreaMinder/nuxt-payload-extractor
     'nuxt-payload-extractor',
-    ['nuxt-i18n', { seo: true }]
+    ['nuxt-i18n', { seo: true }],
+    ['vue-yandex-maps/nuxt', {}]
   ],
   i18n: {
     locales: [
