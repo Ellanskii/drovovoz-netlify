@@ -70,6 +70,10 @@ export default {
       ]
     }
   },
+
+  mounted() {
+    this.$store.dispatch('user/getUserLocationByIP')
+  },
   methods: {
     showLocationSelect() {
       this.$buefy.modal.open({
@@ -80,10 +84,6 @@ export default {
         component: LocationSelect
       })
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('user/getUserLocationByIP')
   }
 }
 </script>

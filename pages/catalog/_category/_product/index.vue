@@ -36,6 +36,7 @@
           <button
             type="button"
             class="button is-fullwidth is-primary is-medium"
+            @click="getWarhouses"
           >
             Указать адрес доставки
           </button>
@@ -52,6 +53,8 @@
 import { mapGetters } from 'vuex'
 import { cleanProduct } from '~/plugins/api'
 import PictureResponsive from '~/components/PictureResponsive'
+import { createClient } from '@/plugins/contentful'
+const contentfulClient = createClient()
 
 export default {
   components: {
@@ -63,9 +66,6 @@ export default {
 
     // получаем данные через API, если это не статика
     if (!process.static) {
-      const contentful = require('~/plugins/contentful')
-      const contentfulClient = contentful.createClient()
-
       // Получаем товар
       await contentfulClient
         .getEntries({
@@ -107,10 +107,28 @@ export default {
     return { product }
   },
 
+  data() {
+    return {
+      searchRadius: 10,
+      warhouses: []
+    }
+  },
+
   computed: {
     ...mapGetters({
-      address: 'user/getAddress'
+      address: 'user/getAddress',
+      coords: 'user/getCoords'
     })
+  },
+
+  methods: {
+    getWarhouses() {
+      contentfulClient.getEntries({
+        content_type: 'warhouse',
+        // 'fields.coords[near]': `${this.coords}`
+        'fields.coords[within]': `${this.coords}, ${this.searchRadius}`
+      })
+    }
   }
 }
 </script>
