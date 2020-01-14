@@ -1,5 +1,5 @@
 <template>
-  <form action="" @submit.prevent="setLocation">
+  <form @submit.prevent="setLocation" action="">
     <section class="modal-card location-select">
       <header class="modal-card-head">
         <p class="modal-card-title">Адрес доставки</p>

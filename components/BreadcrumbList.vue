@@ -14,9 +14,9 @@
         itemtype="http://schema.org/ListItem"
       >
         <nuxt-link :to="breadcrumb.path" itemprop="item">
-          <span itemprop="name" v-html="breadcrumb.name"></span>
+          <span v-html="breadcrumb.name" itemprop="name"></span>
         </nuxt-link>
-        <meta itemprop="position" :content="index + 1" />
+        <meta :content="index + 1" itemprop="position" />
       </li>
     </ol>
   </nav>

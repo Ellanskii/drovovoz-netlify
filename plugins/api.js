@@ -22,3 +22,11 @@ export const cleanProduct = (product, full = false) => {
 
   return full ? { ...basicProduct, ...fullProduct } : basicProduct
 }
+
+export const cleanWarhouse = (warhouse) => {
+  return {
+    id: warhouse.sys.id,
+    address: warhouse.fields.address,
+    dealer: warhouse.fields.dealer?.fields
+  }
+}

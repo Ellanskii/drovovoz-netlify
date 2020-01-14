@@ -1,8 +1,8 @@
 <template>
   <section class="section">
     <nav><NavigationCatalog /></nav>
-    <button class="button" @click="getProducts">include 1</button>
-    <button class="button" @click="getProducts(10)">include 0</button>
+    <button @click="getProducts" class="button">include 1</button>
+    <button @click="getProducts(10)" class="button">include 0</button>
   </section>
 </template>
 

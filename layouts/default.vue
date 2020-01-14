@@ -19,7 +19,7 @@
         <div class="navbar-menu">
           <div class="navbar-item"><LangSwitcher /></div>
           <div class="navbar-item">
-            <button class="button" @click="showLocationSelect">Address</button>
+            <button @click="showLocationSelect" class="button">Address</button>
           </div>
         </div>
       </div>

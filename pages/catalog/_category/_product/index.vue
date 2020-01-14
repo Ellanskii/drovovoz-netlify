@@ -28,15 +28,15 @@
       </div>
       <div v-if="product.description" class="column is-4">
         <h2 class="title is-4">Описание</h2>
-        <div class="content" v-html="product.description"></div>
+        <div v-html="product.description" class="content"></div>
       </div>
       <div class="column is-12">
         <div v-if="address"></div>
         <div v-else class="buttons">
           <button
+            @click="getWarhouses"
             type="button"
             class="button is-fullwidth is-primary is-medium"
-            @click="getWarhouses"
           >
             Указать адрес доставки
           </button>
@@ -44,6 +44,7 @@
             Выбрать поставщика на карте
           </button>
         </div>
+        <WarhouseList v-if="warhouses.length" :warhouses="warhouses" />
       </div>
     </article>
   </div>
@@ -51,14 +52,23 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { cleanProduct } from '~/plugins/api'
-import PictureResponsive from '~/components/PictureResponsive'
+import { cleanProduct, cleanWarhouse } from '~/plugins/api'
 import { createClient } from '@/plugins/contentful'
+import PictureResponsive from '~/components/PictureResponsive'
+import WarhouseList from '~/components/WarhouseList'
 const contentfulClient = createClient()
 
 export default {
   components: {
-    PictureResponsive
+    PictureResponsive,
+    WarhouseList
+  },
+
+  data() {
+    return {
+      searchRadius: 10,
+      warhouses: []
+    }
   },
 
   async asyncData({ $axios, $payloadURL, route, payload, store }) {
@@ -107,13 +117,6 @@ export default {
     return { product }
   },
 
-  data() {
-    return {
-      searchRadius: 10,
-      warhouses: []
-    }
-  },
-
   computed: {
     ...mapGetters({
       address: 'user/getAddress',
@@ -123,11 +126,16 @@ export default {
 
   methods: {
     getWarhouses() {
-      contentfulClient.getEntries({
-        content_type: 'warhouse',
-        // 'fields.coords[near]': `${this.coords}`
-        'fields.coords[within]': `${this.coords}, ${this.searchRadius}`
-      })
+      contentfulClient
+        .getEntries({
+          content_type: 'warhouse',
+          // TODO near or within?
+          'fields.coords[near]': `${this.coords}`
+          // 'fields.coords[within]': `${this.coords}, ${this.searchRadius}`
+        })
+        .then((res) => {
+          this.warhouses = res.items.map((item) => cleanWarhouse(item))
+        })
     }
   }
 }
